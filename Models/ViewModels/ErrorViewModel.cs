@@ -1,4 +1,4 @@
-namespace AuraCommerce.Models
+namespace AuraCommerce.Models.ViewModels
 {
     public class ErrorViewModel
     {

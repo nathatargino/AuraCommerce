@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using AuraCommerce.Models;
+using AuraCommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace AuraCommerce.Controllers
 {
@@ -33,7 +35,7 @@ namespace AuraCommerce.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new Models.ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
