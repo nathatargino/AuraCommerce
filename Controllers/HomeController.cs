@@ -23,6 +23,13 @@ namespace AuraCommerce.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            @ViewData["Message"] = "Gestão inteligente de vendas e departamentos.";
+            @ViewData["Desenvolvedor"] = "Nathã Targino";
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
