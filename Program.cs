@@ -14,7 +14,19 @@ namespace AuraCommerce
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<SeedingService>();
+
             var app = builder.Build();
+
+            if (app.Environment.IsDevelopment())
+            {
+                // Cria um escopo temporário para pegar o serviço de Seed
+                using (var scope = app.Services.CreateScope())
+                {
+                    var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
+                    seedingService.Seed();
+                }
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
