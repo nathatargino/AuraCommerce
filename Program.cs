@@ -1,3 +1,6 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using AuraCommerce.Data;
 namespace AuraCommerce
 {
     public class Program
@@ -5,6 +8,8 @@ namespace AuraCommerce
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<AuraCommerceContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("AuraCommerceContext") ?? throw new InvalidOperationException("Connection string 'AuraCommerceContext' not found.")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
