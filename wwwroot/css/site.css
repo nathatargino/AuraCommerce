@@ -1,22 +1,47 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px; 
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; 
+}
+
+/* --- Animação de Cards --- */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza o movimento */
+}
+
+    .hover-card:hover {
+        transform: translateY(-10px); /* Faz o elemento subir 10 pixels */
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.3) !important; /* Aumenta a sombra para dar profundidade */
+        cursor: pointer;
+    }
+
+/* Animação específica para botões (movimento menor) */
+.btn-hover-effect {
+    transition: transform 0.2s;
+}
+
+    .btn-hover-effect:hover {
+        transform: translateY(-3px); 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra suave */
+    }

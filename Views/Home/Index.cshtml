@@ -2,7 +2,42 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="p-5 mb-4 bg-body-tertiary rounded-4 shadow-sm border border-secondary">
+    <div class="container-fluid py-5">
+        <h1 class="display-4 fw-bold text-primary">AuraCommerce</h1>
+
+        <p class="col-md-8 fs-4 text-white">Gerenciamento moderno de vendas, departamentos e colaboradores.</p>
+
+        <div class="d-flex gap-3 mt-4">
+            <a class="btn btn-primary btn-lg px-4 gap-3 shadow btn-hover-effect" asp-controller="Sellers" asp-action="Index">
+                <i class="bi bi-people-fill me-2"></i>Gerenciar Vendedores
+            </a>
+
+            <a class="btn btn-light btn-lg px-4 shadow btn-hover-effect" asp-controller="Departments" asp-action="Index">
+                Ver Departamentos
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6 mb-4 mb-md-0">
+        <div class="h-100 p-5 text-bg-dark rounded-4 shadow border border-primary hover-card position-relative">
+            <i class="bi bi-building-fill display-4 text-primary mb-3 d-block"></i>
+            <h2 class="text-white">Departamentos</h2>
+            <p class="text-white-50">Organize a estrutura da sua empresa. Crie, edite e visualize os setores.</p>
+
+            <a class="btn btn-primary mt-3 stretched-link" asp-controller="Departments" asp-action="Index">Acessar Departamentos</a>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border border-secondary rounded-4 shadow hover-card position-relative">
+            <i class="bi bi-person-badge-fill display-4 text-warning mb-3 d-block"></i>
+            <h2 class="text-white">Vendedores</h2>
+            <p class="text-white">Visualize a equipe de vendas e seus dados de performance.</p>
+
+            <a class="btn btn-light mt-3 stretched-link" asp-controller="Sellers" asp-action="Index">Acessar Vendedores</a>
+        </div>
+    </div>
 </div>

@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AuraCommerce.Data;
+using AuraCommerce.Services;
 using AuraCommerce.Models;
-using System.Linq;
 
 namespace AuraCommerce.Controllers
 {
     public class SellersController : Controller
     {
-        private readonly AuraCommerceContext _context;
+        private readonly SellerService _sellerService;
 
-        public SellersController(AuraCommerceContext context)
+        
+        public SellersController(SellerService sellerService)
         {
-            _context = context;
+            _sellerService = sellerService;
         }
 
         public IActionResult Index()
         {
-            // Busca a lista de vendedores no banco de dados
-            var list = _context.Seller.ToList();
+            // Pede ao serviço a lista de vendedores
+            var list = _sellerService.FindAll();
             return View(list);
         }
     }
