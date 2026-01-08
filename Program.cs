@@ -23,6 +23,7 @@ namespace AuraCommerce
             builder.Services.AddScoped<SellerService>();
             builder.Services.AddScoped<DepartmentService>();
             builder.Services.AddTransient<EmailService>();
+            builder.Services.AddScoped<SalesRecordService>();
 
             var app = builder.Build();
 
