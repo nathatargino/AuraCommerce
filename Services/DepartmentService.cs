@@ -19,5 +19,12 @@ namespace AuraCommerce.Services
         {
             return _context.Department.OrderBy(x => x.Name).ToList();
         }
+
+        // Salva no banco
+        public void Insert(Department obj)
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
     }
 }
