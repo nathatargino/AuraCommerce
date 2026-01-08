@@ -34,6 +34,53 @@ namespace AuraCommerce.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        // 1. GET: 
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = await _departmentService.FindByIdAsync(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(obj);
+        }
+
+        // 2. POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Department department)
+        {
+            if (id != department.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _departmentService.UpdateAsync(department);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (ApplicationException e)
+            {
+                var errorViewModel = new ErrorViewModel
+                {
+                    Message = e.Message,
+                    RequestId = System.Diagnostics.Activity.Current?.Id
+                                ?? HttpContext.TraceIdentifier
+                };
+                return View("Error", errorViewModel);
+            }
+        }
+
         // GET: 
         public async Task<IActionResult> Details(int? id)
         {

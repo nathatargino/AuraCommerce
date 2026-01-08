@@ -1,34 +1,52 @@
 ﻿@model AuraCommerce.Models.Department
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Departamento";
 }
 
-<h1>Edit</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border border-warning rounded-4 overflow-hidden" style="box-shadow: 0 0 20px rgba(255, 193, 7, 0.2)!important;">
 
-<h4>Department</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <div class="card-header bg-warning text-dark py-3">
+                    <h4 class="mb-0 fw-bold">
+                        <i class="bi bi-building-gear me-2"></i>Editar Departamento
+                    </h4>
+                </div>
+
+                <div class="card-body p-4 bg-dark">
+                    <form asp-action="Edit">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label text-white">Nome do Departamento</label>
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="Ex: Eletrônicos" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-light px-4 text-dark fw-bold">
+                                <i class="bi bi-arrow-left me-1"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning px-4 fw-bold shadow">
+                                <i class="bi bi-check-circle-fill me-2"></i>Salvar Alterações
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

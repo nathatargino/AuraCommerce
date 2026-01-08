@@ -46,5 +46,27 @@ namespace AuraCommerce.Services
                 throw new IntegrityException("Não é possível deletar este departamento porque ele possui vendedores associados.");
             }
         }
+        public async Task UpdateAsync(Department department)
+        {
+
+            bool hasAny = await _context.Department.AnyAsync(x => x.Id == department.Id);
+
+            if (!hasAny)
+            {
+
+                throw new NotFoundException("Id not found");
+            }
+
+            try
+            {
+
+                _context.Update(department);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
+        }
     }
 }
