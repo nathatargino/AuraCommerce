@@ -3,7 +3,8 @@ using AuraCommerce.Services;
 using AuraCommerce.Models;
 using AuraCommerce.Models.ViewModels;
 using AuraCommerce.Services.Exceptions;
-using System.Collections.Generic; // Necessário para usar List<>
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AuraCommerce.Controllers
 {
@@ -12,128 +13,127 @@ namespace AuraCommerce.Controllers
         private readonly SellerService _sellerService;
         private readonly DepartmentService _departmentService;
 
-        // Injetando os DOIS serviços
         public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
             _sellerService = sellerService;
             _departmentService = departmentService;
         }
 
-        public IActionResult Index()
+        
+        public async Task<IActionResult> Index()
         {
-            var list = _sellerService.FindAll();
+            var list = await _sellerService.FindAllAsync();
             return View(list);
         }
 
-        // GET: Abre a tela de cadastro
-        public IActionResult Create()
+        
+        public async Task<IActionResult> Create()
         {
-            var departments = _departmentService.FindAll();
+            var departments = await _departmentService.FindAllAsync();
             var viewModel = new SellerFormViewModel { Departments = departments };
             return View(viewModel);
         }
 
-        // POST: Salva o novo vendedor
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
-            _sellerService.Insert(seller);
+            ModelState.Remove("RowVersion");
+            ModelState.Remove("Seller.RowVersion");
+            ModelState.Remove("Department");
+            ModelState.Remove("Seller.Department");
+            ModelState.Remove("Sales");
+            ModelState.Remove("Seller.Sales");
+
+            if (!ModelState.IsValid)
+            {
+                var departments = await _departmentService.FindAllAsync();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
+
+            await _sellerService.InsertAsync(seller);
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Abre a tela de confirmação de exclusão
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var obj = _sellerService.FindById(id.Value);
-            if (obj == null)
-            {
-                return NotFound();
-            }
+            var obj = await _sellerService.FindByIdAsync(id.Value);
+            if (obj == null) return NotFound();
 
             return View(obj);
         }
 
-        // POST: Executa a exclusão
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _sellerService.Remove(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _sellerService.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {
+                return RedirectToAction("Error", "Home", new { message = e.Message });
+            }
         }
 
-        // GET: Detalhes do vendedor
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var obj = _sellerService.FindById(id.Value);
-
-            if (obj == null)
-            {
-                return NotFound();
-            }
+            var obj = await _sellerService.FindByIdAsync(id.Value);
+            if (obj == null) return NotFound();
 
             return View(obj);
-        } 
+        }
 
-        // GET
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var obj = _sellerService.FindById(id.Value);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-
-           
-            List<Department> departments = _departmentService.FindAll();
+            var obj = await _sellerService.FindByIdAsync(id.Value);
+            if (obj == null) return NotFound();
 
             
-            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+            List<Department> departments = await _departmentService.FindAllAsync();
 
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
             return View(viewModel);
         }
 
-        // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Seller seller)
+        
+        public async Task<IActionResult> Edit(int id, Seller seller)
         {
-            // Validação de segurança
             if (id != seller.Id)
             {
-                // Redireciona para a tela de erro personalizada
                 return RedirectToAction("Error", "Home", new { message = "Id mismatch" });
+            }
+
+            ModelState.Remove("Department");
+            ModelState.Remove("Sales");
+
+            
+            if (!ModelState.IsValid)
+            {
+                
+                var departments = await _departmentService.FindAllAsync();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
             }
 
             try
             {
-                _sellerService.Update(seller);
+                await _sellerService.UpdateAsync(seller);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundException e)
+            catch (ApplicationException e)
             {
-                // Redireciona para a tela de erro personalizada
-                return RedirectToAction("Error", "Home", new { message = e.Message });
-            }
-            catch (DbConcurrencyException e)
-            {
-                // Redireciona para a tela de erro personalizada
                 return RedirectToAction("Error", "Home", new { message = e.Message });
             }
         }

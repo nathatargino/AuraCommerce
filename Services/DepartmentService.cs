@@ -1,7 +1,9 @@
 ﻿using AuraCommerce.Data;
 using AuraCommerce.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AuraCommerce.Services
 {
@@ -15,16 +17,21 @@ namespace AuraCommerce.Services
         }
 
         // Buscar todos os departamentos ordenados por nome
-        public List<Department> FindAll()
+        public async Task<List<Department>> FindAllAsync()
         {
-            return _context.Department.OrderBy(x => x.Name).ToList();
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
 
         // Salva no banco
-        public void Insert(Department obj)
+        public async Task Insert(Department obj)
         {
             _context.Add(obj);
             _context.SaveChanges();
+        }
+
+        internal async Task InsertAsync(Department department)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace AuraCommerce.Models
         // Validação: Obrigatório e valor entre 100 e 500.000
         [Display(Name = "Salário Base")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [Range(100.0, 500000.0, ErrorMessage = "O {0} deve ser entre {1} e {2}")]
+        // Desabilitado por enquanto: [Range(100.0, 500000.0, ErrorMessage = "O {0} deve ser entre {1} e {2}")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double BaseSalary { get; set; }
 

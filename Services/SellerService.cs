@@ -3,6 +3,7 @@ using AuraCommerce.Models;
 using Microsoft.EntityFrameworkCore;
 using AuraCommerce.Services.Exceptions;
 using System.Collections.Generic;
+using System.Threading.Tasks; 
 using System.Linq;
 
 namespace AuraCommerce.Services
@@ -16,35 +17,40 @@ namespace AuraCommerce.Services
             _context = context;
         }
 
-        public List<Seller> FindAll()
+        public async Task<List<Seller>> FindAllAsync()
         {
-            return _context.Seller.ToList();
+            return await _context.Seller.ToListAsync();
         }
 
-        public void Insert(Seller obj)
+        public async Task InsertAsync(Seller obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-
-        // Busca 1 vendedor pelo ID (e traz o Departamento junto)
-        public Seller FindById(int id)
+        public async Task<Seller> FindByIdAsync(int id)
         {
-            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
+            return await _context.Seller.Include(obj => obj.Department).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        // Remove o vendedor pelo ID
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var obj = _context.Seller.Find(id);
-            _context.Seller.Remove(obj);
-            _context.SaveChanges();
+            try
+            {
+                var obj = await _context.Seller.FindAsync(id);
+                _context.Seller.Remove(obj);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException e)
+            {
+                throw new IntegrityException("Não é possível deletar o vendedor porque há vendas associadas a ele.");
+            }
         }
-        public void Update(Seller obj)
+
+        public async Task UpdateAsync(Seller obj)
         {
-            // 1. Verifica se o Vendedor existe no banco antes de tentar editar
-            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            bool hasAny = await _context.Seller.AnyAsync(x => x.Id == obj.Id);
+            if (!hasAny)
             {
                 throw new NotFoundException("Id not found");
             }
@@ -52,11 +58,10 @@ namespace AuraCommerce.Services
             try
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e)
             {
-
                 throw new DbConcurrencyException(e.Message);
             }
         }

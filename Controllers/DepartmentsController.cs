@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AuraCommerce.Services;
 using AuraCommerce.Models;
+using System.Threading.Tasks;
 
 namespace AuraCommerce.Controllers
 {
@@ -15,11 +16,10 @@ namespace AuraCommerce.Controllers
             _departmentService = departmentService;
         }
 
-        
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            // Busca a lista ordenada 
-            var list = _departmentService.FindAll();
+            var list = await _departmentService.FindAllAsync(); 
             return View(list);
         }
 
@@ -32,10 +32,9 @@ namespace AuraCommerce.Controllers
         // Salva formulário (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Department department)
+        public async Task<IActionResult> Create(Department department)
         {
-           
-            _departmentService.Insert(department);
+            await _departmentService.InsertAsync(department); 
             return RedirectToAction(nameof(Index));
         }
     }
