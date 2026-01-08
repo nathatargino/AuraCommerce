@@ -64,6 +64,16 @@ namespace AuraCommerce
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<AuraCommerceContext>();
+                var seedingService = services.GetRequiredService<SeedingService>();
+
+                // Isso garante que o banco seja criado e os dados inseridos
+                context.Database.EnsureCreated();
+                seedingService.Seed();
+            }
 
             app.Run();
         }
