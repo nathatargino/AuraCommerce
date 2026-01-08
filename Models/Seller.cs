@@ -45,7 +45,7 @@ namespace AuraCommerce.Models
 
         // Versionador BD
         [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public byte[]? RowVersion { get; set; }
 
         public Seller()
         {

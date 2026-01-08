@@ -6,22 +6,36 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AuraCommerce.Migrations
 {
     /// <inheritdoc />
-    public partial class OtherEntities : Migration
+    public partial class InitialSQLite : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Department",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Department", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Seller",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BaseSalary = table.Column<double>(type: "float", nullable: false),
-                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 60, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    BaseSalary = table.Column<double>(type: "REAL", nullable: false),
+                    DepartmentId = table.Column<int>(type: "INTEGER", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,19 +45,19 @@ namespace AuraCommerce.Migrations
                         column: x => x.DepartmentId,
                         principalTable: "Department",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "SalesRecord",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<double>(type: "float", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    SellerId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Amount = table.Column<double>(type: "REAL", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    SellerId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +67,7 @@ namespace AuraCommerce.Migrations
                         column: x => x.SellerId,
                         principalTable: "Seller",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -75,6 +89,9 @@ namespace AuraCommerce.Migrations
 
             migrationBuilder.DropTable(
                 name: "Seller");
+
+            migrationBuilder.DropTable(
+                name: "Department");
         }
     }
 }

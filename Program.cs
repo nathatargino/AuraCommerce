@@ -13,7 +13,7 @@ namespace AuraCommerce
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<AuraCommerceContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("AuraCommerceContext") ?? throw new InvalidOperationException("Connection string 'AuraCommerceContext' not found.")));
+                options.UseSqlite(builder.Configuration.GetConnectionString("AuraCommerceContext") ?? throw new InvalidOperationException("Connection string 'AuraCommerceContext' not found.")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews()
