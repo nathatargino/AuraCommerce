@@ -1,8 +1,6 @@
 using System.Diagnostics;
-using AuraCommerce.Models;
-using AuraCommerce.Models.ViewModels;
+using AuraCommerce.Models; 
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace AuraCommerce.Controllers
 {
@@ -27,15 +25,22 @@ namespace AuraCommerce.Controllers
 
         public IActionResult About()
         {
-            @ViewData["Message"] = "Gestão inteligente de vendas e departamentos.";
-            @ViewData["Desenvolvedor"] = "Nathã Targino";
+            ViewData["Message"] = "Gestão inteligente de vendas e departamentos.";
+            ViewData["Desenvolvedor"] = "Nathã Targino";
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        
+        public IActionResult Error(string message)
         {
-            return View(new Models.ViewModels.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var viewModel = new ErrorViewModel
+            {
+                Message = message, 
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
         }
     }
 }
