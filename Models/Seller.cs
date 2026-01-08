@@ -10,12 +10,20 @@ namespace AuraCommerce.Models
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
         public double BaseSalary { get; set; }
-        public Department Department { get; set; }
+
+        // --- Chave Estrangeira e Navegação ---
+        public int DepartmentId { get; set; } // O ID que o formulário preenche
+        public Department? Department { get; set; } 
+
+        // --- Lista de Vendas ---
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
+        
         public Seller()
         {
         }
+
+      
         public Seller(int id, string name, string email, DateTime birthDate, double baseSalary, Department department)
         {
             Id = id;
@@ -24,6 +32,11 @@ namespace AuraCommerce.Models
             BirthDate = birthDate;
             BaseSalary = baseSalary;
             Department = department;
+          
+            if (department != null)
+            {
+                DepartmentId = department.Id;
+            }
         }
 
         public void AddSales(SalesRecord sr)

@@ -19,5 +19,10 @@ namespace AuraCommerce.Services
             // O serviço é quem põe a mão na massa no banco
             return _context.Seller.ToList();
         }
+        public void Insert(Seller obj)
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
     }
 }
