@@ -1,6 +1,53 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Política de Privacidade";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="card shadow-lg border border-primary rounded-4 bg-dark text-white" style="box-shadow: 0 0 25px rgba(13, 110, 253, 0.1)!important;">
+
+                <div class="card-body p-5">
+                    <h1 class="display-5 fw-bold text-primary mb-4"><i class="bi bi-shield-lock-fill me-3"></i>Privacidade</h1>
+
+                    <p class="lead text-white-50">Sua privacidade e a segurança dos dados da sua empresa são prioridades no AuraCommerce.</p>
+
+                    <hr class="border-secondary my-5">
+
+                    <div class="mb-5">
+                        <h4 class="text-primary fw-bold"><i class="bi bi-1-circle me-2"></i>Coleta de Dados</h4>
+                        <p class="text-white-50">
+                            Coletamos apenas informações essenciais para a gestão do sistema, como nomes de colaboradores, e-mails corporativos, departamentos e registros de vendas. Esses dados são utilizados exclusivamente para as funcionalidades internas da plataforma.
+                        </p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h4 class="text-primary fw-bold"><i class="bi bi-2-circle me-2"></i>Segurança e Armazenamento</h4>
+                        <p class="text-white-50">
+                            Utilizamos criptografia e práticas de segurança modernas para garantir que os dados armazenados em nosso banco de dados SQL Server estejam protegidos contra acessos não autorizados. O sistema segue as diretrizes da <strong>LGPD (Lei Geral de Proteção de Dados)</strong>.
+                        </p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h4 class="text-primary fw-bold"><i class="bi bi-3-circle me-2"></i>Uso do E-mail</h4>
+                        <p class="text-white-50">
+                            Os e-mails enviados através da aba de "Contato" são processados via protocolos seguros (SMTP/TLS) e não são compartilhados com terceiros. Eles servem apenas para a comunicação direta entre o usuário e a administração do AuraCommerce.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-3 bg-secondary bg-opacity-10 border-start border-4 border-primary">
+                        <p class="mb-0 small text-white-50 fst-italic">
+                            Esta política de privacidade é válida a partir de janeiro de 2026. Reservamo-nos o direito de atualizar este documento conforme o desenvolvimento de novas funcionalidades do sistema.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-transparent border-top border-secondary p-4 text-center">
+                    <a asp-action="Index" class="btn btn-primary px-4 fw-bold rounded-pill shadow-sm">
+                        Entendi
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

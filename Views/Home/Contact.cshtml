@@ -1,0 +1,113 @@
+﻿@model AuraCommerce.Models.ViewModels.ContactViewModel
+
+@{
+    ViewData["Title"] = "Contato";
+}
+
+<div class="container py-5">
+
+    @if (ViewData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> @ViewData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border border-primary rounded-4 overflow-hidden" style="box-shadow: 0 0 25px rgba(13, 110, 253, 0.2)!important;">
+
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="mb-0 fw-bold"><i class="bi bi-envelope-paper-fill me-2"></i>Fale Conosco</h4>
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="row g-0">
+
+                        <div class="col-md-5 bg-dark text-white p-5 border-end border-secondary">
+                            <h5 class="fw-bold mb-4 text-primary">Informações de Contato</h5>
+
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-geo-alt-fill text-primary fs-4 me-3"></i>
+                                    <span>Rua da Tecnologia, 123<br>São Paulo, SP</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-telephone-fill text-primary fs-4 me-3"></i>
+                                    <span>(11) 99999-9999</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-envelope-at-fill text-primary fs-4 me-3"></i>
+                                    <span>contato@auracommerce.com</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                <small class="text-white-50">Horário de atendimento:<br>Seg - Sex, 09h às 18h</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-7 bg-body-tertiary p-5">
+                            <h5 class="fw-bold mb-4 text-light">Envie uma mensagem</h5>
+
+                            <form asp-action="Contact">
+                                <div class="mb-3">
+                                    <label asp-for="Name" class="form-label fw-bold">Nome</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                                        <input asp-for="Name" class="form-control" placeholder="Seu nome completo" />
+                                    </div>
+                                    <span asp-validation-for="Name" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Email" class="form-label fw-bold">E-mail</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-at"></i></span>
+                                        <input asp-for="Email" class="form-control" placeholder="nome@exemplo.com" />
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Subject" class="form-label fw-bold">Assunto</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-chat-left-text-fill"></i></span>
+                                        <input asp-for="Subject" class="form-control" placeholder="Motivo do contato" />
+                                    </div>
+                                    <span asp-validation-for="Subject" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Message" class="form-label fw-bold">Mensagem</label>
+                                    <textarea asp-for="Message" class="form-control" rows="4" placeholder="Escreva sua mensagem aqui..."></textarea>
+                                    <span asp-validation-for="Message" class="text-danger small"></span>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary fw-bold py-2 shadow-sm">
+                                        ENVIAR MENSAGEM <i class="bi bi-send-fill ms-2"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

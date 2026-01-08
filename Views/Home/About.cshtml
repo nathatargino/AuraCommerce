@@ -1,14 +1,61 @@
 ﻿@{
-    ViewData["Title"] = "About Us";
+    ViewData["Title"] = "Sobre";
 }
 
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border border-primary rounded-4 overflow-hidden" style="box-shadow: 0 0 25px rgba(13, 110, 253, 0.2)!important;">
 
-<p>Desenvolvedor: @ViewData["Desenvolvedor"]</p>
-<adress>
-    <strong>Para mais Informações acesse o <a href="https://nathatargino.azurewebsites.net/" target="_blank">meu portólio</a>.</strong>
-</adress>
+                <div class="card-header bg-primary text-white py-4 text-center">
+                    <h2 class="fw-bold mb-0">AuraCommerce</h2>
+                    <p class="mb-0 opacity-75">@ViewData["Message"]</p>
+                </div>
 
+                <div class="card-body bg-dark text-white p-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center mb-4 mb-md-0">
+                            <i class="bi bi-cpu-fill text-primary" style="font-size: 6rem;"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="text-primary fw-bold mb-3">O Projeto</h4>
+                            <p class="text-white-50 lh-lg">
+                                O <strong>AuraCommerce</strong> é uma plataforma robusta desenvolvida para otimizar a administração de vendas e a organização de departamentos.
+                                Construído com tecnologias de ponta como <strong>ASP.NET Core 8.0</strong> e <strong>Entity Framework</strong>, o sistema garante performance, segurança e uma interface intuitiva para o usuário final.
+                            </p>
 
+                            <hr class="border-secondary my-4">
 
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-person-badge-fill text-primary fs-2"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0 fw-bold">Desenvolvedor Responsável</h6>
+                                    <span class="text-white-50">@ViewData["Desenvolvedor"]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-dark border-top border-secondary p-4 text-center">
+                    <h6 class="text-white-50 mb-3">Tecnologias Utilizadas</h6>
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <span class="badge rounded-pill bg-outline-primary border border-primary px-3 py-2 text-primary">C# / .NET 8</span>
+                        <span class="badge rounded-pill bg-outline-primary border border-primary px-3 py-2 text-primary">Entity Framework</span>
+                        <span class="badge rounded-pill bg-outline-primary border border-primary px-3 py-2 text-primary">SQL Server</span>
+                        <span class="badge rounded-pill bg-outline-primary border border-primary px-3 py-2 text-primary">Bootstrap 5</span>
+                        <span class="badge rounded-pill bg-outline-primary border border-primary px-3 py-2 text-primary">MailKit SMTP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-action="Index" class="btn btn-link text-primary text-decoration-none fw-bold">
+                    <i class="bi bi-house-door-fill me-2"></i>Voltar para o Início
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
