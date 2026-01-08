@@ -1,24 +1,42 @@
 ﻿@model AuraCommerce.Models.Department
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border border-danger rounded-4 overflow-hidden" style="box-shadow: 0 0 25px rgba(220, 53, 69, 0.2)!important;">
 
-<div>
-    <h4>Department</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                <div class="card-header bg-danger text-white py-3">
+                    <h4 class="mb-0 fw-bold"><i class="bi bi-info-circle-fill me-2"></i>Detalhes do Departamento</h4>
+                </div>
+
+                <div class="card-body p-4 bg-dark text-white">
+
+                    <dl class="row">
+                        <dt class="col-sm-4 text-white-50">@Html.DisplayNameFor(model => model.Id)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Id)</dd>
+
+                        <dt class="col-sm-4 text-white-50">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8 fw-bold fs-5">@Html.DisplayFor(model => model.Name)</dd>
+                    </dl>
+
+                    <hr class="border-secondary my-4">
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-light px-4 text-dark fw-bold shadow-sm">
+                            <i class="bi bi-arrow-left me-2"></i>Voltar
+                        </a>
+
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning px-4 fw-bold shadow-sm">
+                            <i class="bi bi-pencil-square me-2"></i>Editar
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
