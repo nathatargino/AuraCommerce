@@ -1,0 +1,48 @@
+﻿@model AuraCommerce.Models.Seller
+
+@{
+    ViewData["Title"] = "Deletar";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border border-danger rounded-4 overflow-hidden" style="box-shadow: 0 0 25px rgba(220, 53, 69, 0.2)!important;">
+
+                <div class="card-header bg-danger text-white py-3">
+                    <h4 class="mb-0 fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Excluir Vendedor?</h4>
+                </div>
+
+                <div class="card-body p-4 bg-dark text-white">
+                    <h5 class="mb-4 text-center text-white-50">Esta ação não poderá ser desfeita.</h5>
+
+                    <dl class="row">
+                        <dt class="col-sm-4 text-white-50">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8 fw-bold">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-4 text-white-50">@Html.DisplayNameFor(model => model.Email)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+
+                        <dt class="col-sm-4 text-white-50">@Html.DisplayNameFor(model => model.BirthDate)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.BirthDate)</dd>
+
+                        <dt class="col-sm-4 text-white-50">@Html.DisplayNameFor(model => model.BaseSalary)</dt>
+                        <dd class="col-sm-8 text-success">R$ @Html.DisplayFor(model => model.BaseSalary)</dd>
+                    </dl>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" class="btn btn-light px-4 text-dark fw-bold">Cancelar</a>
+
+                            <button type="submit" class="btn btn-danger px-4 fw-bold shadow">
+                                <i class="bi bi-trash-fill me-2"></i>Confirmar Exclusão
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
